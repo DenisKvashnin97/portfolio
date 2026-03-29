@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Денис Квашнин — режиссер монтажа</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #000000;
+        --panel: rgba(255, 255, 255, 0.02);
+        --panel-2: rgba(255, 255, 255, 0.03);
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #ffffff;
+        --muted: rgba(255, 255, 255, 0.7);
+        --muted-2: rgba(255, 255, 255, 0.55);
+        --container: 1100px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        letter-spacing: -0.01em;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .container {
+        width: min(var(--container), calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .serif {
+        font-family: "Playfair Display", Georgia, serif;
+        letter-spacing: -0.03em;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid var(--border);
+        background: rgba(0, 0, 0, 0.86);
+        backdrop-filter: blur(12px);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+      }
+
+      .brand {
+        font-size: 1.125rem;
+        font-weight: 600;
+      }
+
+      .desktop-nav {
+        display: flex;
+        gap: 24px;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .desktop-nav a:hover,
+      .footer-links a:hover {
+        color: var(--text);
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        background: var(--panel-2);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .mobile-nav {
+        display: none;
+        padding: 0 0 16px;
+      }
+
+      .mobile-nav.open {
+        display: block;
+      }
+
+      .mobile-nav a {
+        display: block;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--panel);
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 8px;
+      }
+
+      .section {
+        padding: 40px 0;
+      }
+
+      .hero {
+        padding: 56px 0 48px;
+      }
+
+      .eyebrow {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      h1 {
+        margin: 16px 0 0;
+        max-width: 900px;
+        font-size: clamp(2.2rem, 6vw, 4.8rem);
+        line-height: 1.02;
+      }
+
+      .hero p,
+      .section-text {
+        max-width: 760px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 1rem;
+      }
+
+      .hero p {
+        margin-top: 20px;
+        max-width: 720px;
+      }
+
+      .button-row {
+        display: flex;
+        gap: 12px;
+        margin-top: 32px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0 20px;
+        border-radius: 14px;
+        border: 1px solid transparent;
+        transition: 0.25s ease;
+      }
+
+      .btn-primary {
+        background: #ffffff;
+        color: #000000;
+      }
+
+      .btn-primary:hover {
+        opacity: 0.92;
+      }
+
+      .btn-secondary {
+        border-color: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: var(--panel);
+        padding: 20px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .tag {
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 0.92rem;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+      }
+
+      .works-layout {
+        margin-top: 28px;
+        display: grid;
+        gap: 24px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .stack {
+        display: grid;
+        gap: 24px;
+      }
+
+      .card {
+        width: 100%;
+        padding: 16px;
+        background: transparent;
+        color: inherit;
+        text-align: left;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        cursor: pointer;
+        transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.25);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .card-media {
+        position: relative;
+        overflow: hidden;
+        border-radius: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: transform 0.5s ease;
+      }
+
+      .card:hover .card-media {
+        transform: scale(1.02);
+      }
+
+      .media-horizontal {
+        aspect-ratio: 16 / 9;
+      }
+
+      .media-vertical {
+        aspect-ratio: 9 / 16;
+        max-width: 260px;
+        margin: 0 auto;
+      }
+
+      .card-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.55),
+          rgba(0, 0, 0, 0.1),
+          transparent
+        );
+        transition: 0.3s ease;
+      }
+
+      .card:hover .card-media::after {
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.65),
+          rgba(0, 0, 0, 0.2),
+          transparent
+        );
+      }
+
+      .play {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        z-index: 1;
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(6px);
+        transition: 0.3s ease;
+      }
+
+      .card:hover .play {
+        transform: scale(1.1);
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .card-title {
+        margin: 16px 0 0;
+        font-size: 1.05rem;
+      }
+
+      .card-text {
+        margin: 10px 0 0;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.7;
+        font-size: 0.95rem;
+        transition: color 0.3s ease;
+      }
+
+      .card:hover .card-text {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .footer {
+        border-top: 1px solid var(--border);
+        margin-top: 12px;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 32px 0;
+        color: var(--muted-2);
+        font-size: 0.95rem;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .to-top {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 25;
+        width: 44px;
+        height: 44px;
+        display: none;
+        place-items: center;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        backdrop-filter: blur(10px);
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal-box {
+        position: relative;
+        width: min(100%, 1100px);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        background: #0a0a0a;
+        padding: 16px;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        cursor: pointer;
+      }
+
+      .modal-title {
+        margin: 0;
+        padding-right: 48px;
+        font-size: 1.6rem;
+      }
+
+      .modal-text {
+        margin: 10px 0 0;
+        max-width: 720px;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.7;
+      }
+
+      .modal-media-wrap {
+        margin-top: 20px;
+      }
+
+      .modal-media-wrap.vertical {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .modal-media {
+        overflow: hidden;
+        border-radius: 24px;
+        background: #000;
+      }
+
+      .modal-media.horizontal {
+        aspect-ratio: 16 / 9;
+      }
+
+      .modal-media.vertical {
+        aspect-ratio: 9 / 16;
+      }
+
+      .modal-media iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      .modal-empty {
+        display: none;
+        min-height: 320px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.55);
+        padding: 32px;
+        border-radius: 24px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+      }
+
+      .modal-empty.show {
+        display: flex;
+      }
+
+      @media (max-width: 900px) {
+        .grid-3,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .media-vertical {
+          max-width: 260px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .desktop-nav {
+          display: none;
+        }
+
+        .menu-toggle {
+          display: grid;
+          place-items: center;
+        }
+
+        .button-row {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .hero {
+          padding-top: 44px;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+        }
+
+        .to-top {
+          display: grid;
+        }
+
+        .modal-box {
+          padding: 12px;
+          border-radius: 20px;
+        }
+
+        .modal-title {
+          font-size: 1.3rem;
+        }
+
+        .modal-media-wrap.vertical {
+          max-width: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="top"></div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand serif">Денис Квашнин</div>
+
+        <nav class="desktop-nav">
+          <a href="#works">Работы</a>
+          <a href="#about">Обо мне</a>
+          <a href="#price">Цена</a>
+          <a href="#contact">Контакты</a>
+        </nav>
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+      </div>
+
+      <div class="container mobile-nav" id="mobileNav">
+        <a href="#works">Работы</a>
+        <a href="#about">Обо мне</a>
+        <a href="#price">Цена</a>
+        <a href="#contact">Контакты</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="eyebrow">Режиссер монтажа</div>
+        <h1 class="serif">
+          Создаю монтаж, который держит внимание, передает настроение и работает
+          на задачу проекта.
+        </h1>
+        <p>
+          Работаю с ритмом, драматургией и структурой кадра, чтобы видео не
+          просто выглядело красиво, а точно попадало в зрителя.
+        </p>
+        <div class="button-row">
+          <a class="btn btn-primary" href="#contact">Написать</a>
+          <a class="btn btn-secondary" href="#works">Смотреть работы</a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="panel">
+          <div class="eyebrow">С чем я работаю</div>
+          <div class="tags">
+            <span class="tag">Шоурил</span>
+            <span class="tag">Интервью</span>
+            <span class="tag">Трейлеры</span>
+            <span class="tag">Экспертные ролики</span>
+            <span class="tag">Вертикальные видео</span>
+            <span class="tag">Презентации</span>
+            <span class="tag">Reels</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="works">
+        <h2 class="serif">Работы</h2>
+
+        <div class="works-layout">
+          <div class="grid-3" id="row1"></div>
+
+          <div class="grid-3">
+            <div id="row2-left"></div>
+            <div class="stack" id="row2-center"></div>
+            <div id="row2-right"></div>
+          </div>
+
+          <div class="grid-2" id="row3"></div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <h2 class="serif">Обо мне</h2>
+        <p class="section-text">
+          Я режиссер монтажа. Для меня монтаж — это не только техника, но и
+          способ управлять вниманием, эмоцией и восприятием истории. Собираю
+          видео так, чтобы оно выглядело цельно, звучало точно и оставляло
+          нужное впечатление.
+        </p>
+      </section>
+
+      <section class="section" id="price">
+        <h2 class="serif">Цена</h2>
+        <p class="section-text">
+          Стоимость рассчитывается индивидуально под задачу и зависит от
+          формата, объема материала, сложности монтажа, количества правок и
+          сроков проекта.
+        </p>
+      </section>
+
+      <section class="section" id="contact">
+        <h2 class="serif">Контакты</h2>
+        <p class="section-text">Для сотрудничества пишите:</p>
+        <div class="button-row" style="margin-top: 24px">
+          <a class="btn btn-primary" href="https://t.me/deniskvashnin"
+            >@deniskvashnin · Telegram</a
+          >
+          <a class="btn btn-secondary" href="mailto:deniskvashnin97@yandex.ru"
+            >deniskvashnin97@yandex.ru</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>Денис Квашнин — режиссер монтажа</div>
+        <div class="footer-links">
+          <a href="https://t.me/deniskvashnin">Telegram</a>
+          <a href="mailto:deniskvashnin97@yandex.ru">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <a class="to-top" href="#top" aria-label="Наверх">↑</a>
+
+    <div class="modal" id="projectModal">
+      <div class="modal-box">
+        <button class="modal-close" id="modalClose" aria-label="Закрыть">
+          ✕
+        </button>
+        <h3 class="modal-title serif" id="modalTitle"></h3>
+        <p class="modal-text" id="modalText"></p>
+
+        <div class="modal-media-wrap" id="modalMediaWrap">
+          <div class="modal-media" id="modalMedia">
+            <iframe
+              id="modalIframe"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+              style="display: none"
+            ></iframe>
+            <div class="modal-empty" id="modalEmpty">
+              Сюда можно вставить видео для этого кейса
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const projects = [
+        {
+          title: "Шоурил",
+          description:
+            "Подборка работ, в которой важны ритм, драматургия и точное ощущение кадра.",
+          video: "https://youtube.com/embed/JHfshPOVaCM",
+        },
+        {
+          title: "Презентационный ролик",
+          description:
+            "Видео, которое ясно доносит ценность продукта, идеи или проекта.",
+          video: "https://youtube.com/embed/Bm55_SZI11Q",
+        },
+        {
+          title: "Конференция",
+          description:
+            "Сборка события в цельное видео с энергией, масштабом и точными акцентами.",
+          video: "https://youtube.com/embed/6vCH6cfPi88",
+        },
+        {
+          title: "Экспертное видео",
+          description:
+            "Чистый и динамичный монтаж, который помогает раскрыть мысль и удержать внимание зрителя.",
+          vertical: true,
+          video: "https://youtube.com/embed/Ftg0HuZo7H8?feature=share",
+        },
+        {
+          title: "Интервью",
+          description:
+            "Монтаж, который держит внимание на герое, смысле и естественном течении разговора.",
+          video: "https://youtube.com/embed/Iu869G3-bkw",
+        },
+        {
+          title: "Обучающее видео",
+          description:
+            "Понятная структура, чистая подача и монтаж, который помогает легко воспринимать материал.",
+          video: "https://youtube.com/embed/H3ftR44LvvQ",
+        },
+        {
+          title: "Вертикальное видео",
+          description:
+            "Короткий вертикальный формат с быстрым вовлечением и точным ритмом монтажа.",
+          vertical: true,
+          video: "https://youtube.com/embed/2B5aAUiBtNQ?feature=share",
+        },
+        {
+          title: "Трейлер фильма",
+          description:
+            "Монтаж с акцентом на темп, напряжение и сильную подачу истории.",
+          video: "https://youtube.com/embed/DuX5vwJPryQ",
+        },
+        {
+          title: "Музыкальный тизер",
+          description:
+            "Тизер с акцентом на атмосферу, напряжение и музыкальную драматургию.",
+          video: "https://youtube.com/embed/jW3fFo9wyDU",
+        },
+      ];
+
+      function getYouTubeId(url) {
+        if (!url) return "";
+        const match = url.match(
+          /(?:youtube\.com\/embed\/|youtu\.be\/|youtube\.com\/watch\?v=)([^&?/]+)/
+        );
+        return match ? match[1] : "";
+      }
+
+      function getCardBackground(project) {
+        const youtubeId = getYouTubeId(project.video);
+
+        if (youtubeId) {
+          return `background-image: linear-gradient(135deg, rgba(20,20,20,0.18), rgba(20,20,20,0.28)), url('https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg'); background-size: cover; background-position: center;`;
+        }
+
+        return "";
+      }
+
+      function createCard(project) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "card";
+        button.innerHTML = `
+          <div class="card-media ${
+            project.vertical ? "media-vertical" : "media-horizontal"
+          }" style="${getCardBackground(project)}">
+            <div class="play">▶</div>
+          </div>
+          <h3 class="card-title serif">${project.title}</h3>
+          <p class="card-text">${project.description}</p>
+        `;
+
+        button.addEventListener("click", () => {
+          openModal(project);
+        });
+
+        return button;
+      }
+
+      document
+        .getElementById("row1")
+        .append(
+          createCard(projects[0]),
+          createCard(projects[1]),
+          createCard(projects[2])
+        );
+
+      document.getElementById("row2-left").append(createCard(projects[3]));
+
+      document
+        .getElementById("row2-center")
+        .append(createCard(projects[4]), createCard(projects[5]));
+
+      document.getElementById("row2-right").append(createCard(projects[6]));
+
+      document
+        .getElementById("row3")
+        .append(createCard(projects[7]), createCard(projects[8]));
+
+      const modal = document.getElementById("projectModal");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalText = document.getElementById("modalText");
+      const modalIframe = document.getElementById("modalIframe");
+      const modalMediaWrap = document.getElementById("modalMediaWrap");
+      const modalMedia = document.getElementById("modalMedia");
+      const modalEmpty = document.getElementById("modalEmpty");
+      const modalClose = document.getElementById("modalClose");
+
+      function openModal(project) {
+        modalTitle.textContent = project.title;
+        modalText.textContent = project.description;
+
+        modalMediaWrap.className =
+          "modal-media-wrap" + (project.vertical ? " vertical" : "");
+        modalMedia.className =
+          "modal-media " + (project.vertical ? "vertical" : "horizontal");
+
+        if (project.video && project.video.trim() !== "") {
+          modalIframe.src = project.video;
+          modalIframe.style.display = "block";
+          modalEmpty.classList.remove("show");
+        } else {
+          modalIframe.removeAttribute("src");
+          modalIframe.style.display = "none";
+          modalEmpty.classList.add("show");
+        }
+
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        modal.classList.remove("open");
+        modalIframe.src = "";
+        modalIframe.style.display = "none";
+        modalEmpty.classList.remove("show");
+        document.body.style.overflow = "";
+      }
+
+      modalClose.addEventListener("click", closeModal);
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileNav = document.getElementById("mobileNav");
+
+      menuToggle.addEventListener("click", () => {
+        const open = mobileNav.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(open));
+        menuToggle.textContent = open ? "✕" : "☰";
+      });
+
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileNav.classList.remove("open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.textContent = "☰";
+        });
+      });
+    </script>
+  </body>
+</html>
